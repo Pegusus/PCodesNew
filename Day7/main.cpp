@@ -1,3 +1,6 @@
+#include <iostream>
+
+using namespace std;
 int max(int a, int b)
 {
     if(a>b)return a;
@@ -21,4 +24,13 @@ int getMaxMoney(int arr[], int n){
     int N = n;
     return getMax(arr,N,dp);
 
+}
+int main(){
+    int n;
+    cin >> n;
+    int arr[10000];
+    for(int i=0; i<n; i++){
+        cin >> arr[i];
+    }
+    cout << getMaxMoney(arr, n);
 }
