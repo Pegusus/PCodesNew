@@ -12,10 +12,13 @@ int lps(string s)
     {
         int l = i;
         int r = i;
-
+         string str = "";
         while(l!=0 && r!=len && s[l]==s[r]){
             int curr_len = r-l+1;
             if(max<curr_len)max = curr_len;
+            for(int j = l;j<=r;j++)
+            str = str + s[j];
+
             l--;
             r++;
         }
