@@ -1,10 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-int min(int a,int b)
-{
-    if(a<b)return a;
-    else return b;
-}
+
 void buildTree(int* arr,int* tree,int si,int ei,int treenode){
     if(si==ei){
         tree[treenode] = arr[si];
@@ -32,23 +28,38 @@ void updateTree(int* arr,int* tree,int si,int ei,int treenode,int idx,int val)
 
     tree[treenode] = min(tree[2*treenode+1] , tree[2*treenode+2]);
 }
+int querry(int* tree,int si,int ei,int treenode,int l,int r){
+    if(si>r || ei < l)
+        return INT_MAX;
+    if(si>=l&&ei<=r)
+        return tree[treenode];
+    int mid = si + (ei-si)/2;
+    int ans1 = querry(tree,si,mid,2*treenode+1,l,r);
+    int ans2 = querry(tree,mid+1,ei,2*treenode+2,l,r);
+    return min(ans1,ans2);
+}
 int main() {
 
-	// Write your code here
-    int arr[] = {1,5,2,4,3};
-    int n = 5;
+    int n,q;
+    cin>>n>>q;
+    int* arr = new int[n];
+    for(int i =0 ;i<n;i++)
+        cin>>arr[i];
 
     int* tree = new int[4*n];
-    for(int i = 0;i<4*n;i++)
-        tree[i]=INT_MIN;
     buildTree(arr,tree,0,n-1,0);
 
-    for(int i = 0;i<4*n;i++)
-        if(tree[i]!=INT_MIN)
-            cout<<i<<"-"<<tree[i]<<" ";
-    cout<<endl;
-    updateTree(arr,tree,0,n-1,1,2,0);
-    for(int i = 0;i<4*n;i++)
-        if(tree[i]!=INT_MIN)
-            cout<<i<<"-"<<tree[i]<<" ";
+    while(q--){
+        char ch;int a,b;
+        cin>>ch;
+        cin>>a>>b;
+        if(ch=='q')
+        {
+            cout<<querry(tree,0,n-1,0,a-1,b-1)<<endl;
+        }
+        else
+             updateTree(arr,tree,0,n-1,0,a-1,b);
+
+    }
+	return 0;
 }
