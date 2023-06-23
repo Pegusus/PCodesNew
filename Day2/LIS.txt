@@ -12,4 +12,4 @@ Sample Input 1:
 6
 15 20 20 6 4 2
 Sample Output 1:
-5
+4
